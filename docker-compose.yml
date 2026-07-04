@@ -1,0 +1,27 @@
+services:
+  discord-bot:
+    container_name: discord-bot
+    build:
+      context: ./discord-bot
+      dockerfile: Dockerfile
+    environment:
+      DISCORD_TOKEN: ${DISCORD_TOKEN}
+      TARGET_CHANNEL_ID: ${TARGET_CHANNEL_ID}
+      PYTHONUNBUFFERED: 1
+    volumes:
+      - seed-data:/data
+    restart: unless-stopped
+
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - 5001:8080
+    volumes:
+      - seed-data:/data
+    restart: unless-stopped
+
+volumes:
+  seed-data:
