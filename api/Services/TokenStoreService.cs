@@ -38,7 +38,7 @@ public class TokenStoreService : IDisposable
 
     public TokenStoreService(IConfiguration config, ILogger<TokenStoreService> logger)
     {
-        _filePath = config["TokenFile:Path"] ?? "/data/tokens.json";
+        _filePath = config["TokenFile:Path"] ?? "/tokens/tokens.json";
         _logger = logger;
         EnsureFileExists();
         Load();
