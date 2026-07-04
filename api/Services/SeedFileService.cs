@@ -36,15 +36,13 @@ public class SeedFileService
             }
             catch (Exception ex)
             {
-                _logger.LogWarning(ex, "Deleting unreadable seed file {Path}", path);
-                File.Delete(path);
+                _logger.LogWarning(ex, "Skipping unreadable file {Path}", path);
                 continue;
             }
 
-            if (seed is null)
+            if (seed is null || seed.Raids is not { Count: > 0 } || seed.ExpireAt == DateTime.MinValue)
             {
-                _logger.LogWarning("Deleting empty seed file {Path}", path);
-                File.Delete(path);
+                _logger.LogWarning("Skipping {Path}: does not look like a seed file", path);
                 continue;
             }
 
@@ -88,7 +86,8 @@ public class SeedFileService
 
     public SeedFile? Seed => _seed;
     public bool IsLoaded => _seed is not null;
-    public MetaData Meta => new MetaData(_loadedFilename, _loadedAt, _seed.ValidFrom, _seed.ExpireAt);
+    public MetaData? Meta => _seed is null ? null
+        : new MetaData(_loadedFilename, _loadedAt, _seed.ValidFrom, _seed.ExpireAt);
 }
 
 
