@@ -8,6 +8,7 @@ client = discord.Client(intents=intents)
 
 TARGET_CHANNEL_ID = int(os.environ["TARGET_CHANNEL_ID"])
 DATA_DIR = os.environ.get("DATA_DIR", "/data/seeds")
+os.makedirs(DATA_DIR, exist_ok=True)
 PROCESSED_REACTION = "👍"
 tree = app_commands.CommandTree(client)
 
