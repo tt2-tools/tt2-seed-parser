@@ -9,6 +9,11 @@ client = discord.Client(intents=intents)
 TARGET_CHANNEL_ID = int(os.environ["TARGET_CHANNEL_ID"])
 DATA_DIR = os.environ.get("DATA_DIR", "/data/seeds")
 os.makedirs(DATA_DIR, exist_ok=True)
+# api runs as a non-root user in group 2000 and needs to delete stale seed
+# files here (SeedFileService cleanup) - keep the dir group-writable on
+# every start so this stays correct even on a pre-existing volume.
+os.chown(DATA_DIR, -1, 2000)
+os.chmod(DATA_DIR, 0o775)
 PROCESSED_REACTION = "👍"
 tree = app_commands.CommandTree(client)
 
