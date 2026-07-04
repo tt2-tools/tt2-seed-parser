@@ -8,7 +8,7 @@ public static class SeedEndpoints
     {
 
         app.MapGet("/seed/meta", (SeedFileService svc) =>
-            Results.Ok(svc.Meta));
+            svc.IsLoaded ? Results.Ok(svc.Meta) : Results.NotFound("No valid seed file found"));
 
         app.MapGet("/seed/raids", (SeedFileService svc) =>
         {
