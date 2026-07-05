@@ -1,4 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+ENV DOTNET_EnableWriteXorExecute=0
 WORKDIR /src
 COPY seedapi.csproj .
 RUN dotnet restore

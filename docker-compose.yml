@@ -1,8 +1,11 @@
 services:
   discord-bot:
     container_name: discord-bot
+    image: dardenne8u/tt2-seed-parser-discord-bot
     build:
       context: ./discord-bot
+      platforms:
+        - linux/amd64
       dockerfile: Dockerfile
     environment:
       DISCORD_TOKEN: ${DISCORD_TOKEN}
@@ -15,8 +18,11 @@ services:
 
   api:
     container_name: api
+    image: dardenne8u/tt2-seed-parser-api
     build:
       context: ./api
+      platforms:
+        - linux/amd64
       dockerfile: Dockerfile
     ports:
       - 5001:8080

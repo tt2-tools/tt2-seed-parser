@@ -18,7 +18,7 @@ public class SeedFileService
 
     public SeedFileService(IConfiguration config, ILogger<SeedFileService> logger)
     {
-        _dataDir = config["SeedFile:DataDir"] ?? "/data";
+        _dataDir = config["SeedFile:DataDir"] ?? "/data/seeds";
         _logger = logger;
     }
 
